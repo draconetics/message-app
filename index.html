@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+<!-- Firebase App is always required and must be first -->
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+
+<!-- Add additional services that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-functions.js"></script>
+
+<!-- Comment out (or don't include) services that you don't want to use -->
+<!-- <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script> -->
+	
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAECqgqvecHYkxK3_dykpq3jKHJdVk-ccA",
+    authDomain: "asistance-6f6d5.firebaseapp.com",
+    databaseURL: "https://asistance-6f6d5.firebaseio.com",
+    projectId: "asistance-6f6d5",
+    storageBucket: "asistance-6f6d5.appspot.com",
+    messagingSenderId: "828922871733"
+  };
+
+  firebase.initializeApp(config);
+
+
+
+</script>
+</head>
+<body>
+
+<div class="container">
+	<input type="text" id="txtEmail" type="email" placeholder="email">
+	<input type="text" id="txtPassword" type="password" placeholder="password">
+	<button id="btnLogin" class="btn btn-success">Login</button>
+	<button id="btnSignup" class="btn btn-warning">Register</button>
+	<button id="btnLogout" class="btn btn-secondary">Logout</button>
+	<button id="btnFacebook" class="btn btn-primary">Facebook</button>
+	<button id="btnGmail" onclick="openGmail()" class="btn btn-danger">gmail</button>
+
+
+	<script>
+	const txtEmail = document.getElementById('txtEmail');
+  	const txtPassword = document.getElementById('txtPassword');
+  	const btnLogin = document.getElementById('btnLogin');
+  	const btnSignup = document.getElementById('btnSignup');
+  	const btnLogout = document.getElementById('btnLogout');
+  	const btnGmail = document.getElementById('btnGmail');
+
+
+
+
+
+
+
+
+var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('https://www.googleapis.com/auth/drive');
+    firebase.auth().signInWithRedirect(provider);
+    //add the code below to your previous lines
+    firebase.auth().getRedirectResult().then(function(authData) {
+        console.log(authData);
+    }).catch(function(error) {
+        console.log(error);
+    });
+
+	</script>
+</div>
+
+</body>
+</html>

@@ -1,13 +1,28 @@
 <template>
   <div id="app">
+
+    <MenuBar/>
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/signup">Signup</router-link>
     </div>
-    <router-view/>
+
+      <v-app>
+        <router-view/>
+      </v-app>
   </div>
 </template>
+<script>
+  import MenuBar from '@/components/MenuBarComponent.vue';
 
+
+export default {
+  name: 'appVue',
+  components: {
+   MenuBar
+  },
+}
+</script>
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
