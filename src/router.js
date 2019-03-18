@@ -45,34 +45,64 @@ const router = new Router({
       meta:{
         requiresAuth : true
       }
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import(/* webpackChunkName: "about" */ './views/Administrator.vue'),
+      meta:{
+        adminAuth: true
+      }
+    },
+    {
+      path: '*',
+      component: Home
     }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-    if(to.matched.some(record => record.meta.requiresAuth)) {
+    if(to.matched.some(record => record.meta.adminAuth)) {
         firebase_config.auth().onAuthStateChanged(function(user) {
             if (!user) {
                 next({
                     path: '/login'
                 })
             } else {
-                next()
+                if(user.email == 'mario@gmail.com')
+                    next()
+                else
+                    next({ path: '/msg'})
             }
         })
     } else {
-        if(to.matched.some(record => record.meta.guest)) {
+        if(to.matched.some(record => record.meta.requiresAuth)) {
             firebase_config.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    next({
-                        path: '/'
-                    })
-                } else {
                     next()
+                } else {
+                    next({
+                        path: '/login'
+                    })
                 }
             })
         }else{
-          next()
+            
+            if(to.matched.some(record => record.meta.guest)) {
+                    firebase_config.auth().onAuthStateChanged(function(user) {
+                        if (user) {
+                            next({
+                              path: '/home'
+                            })
+                        } else {
+                            next()
+                        }
+                    })
+            }else{
+                  next()
+            }
+
+
         }
     }
 })

@@ -1,57 +1,60 @@
 <template>
   <div>
-    <div class="container">
+    <v-container>
                 <v-alert :value="error"
                           type="error"
                           >
                     {{error}}
                 </v-alert>
-        <v-form>
-            <v-text-field
-              v-model="name"
-              label="Name"
-              required
-            ></v-text-field>
 
-            <v-text-field
-              v-model="email"
-              
-              label="E-mail"
-              required
-            ></v-text-field>
-            
-            <v-text-field
-              type="password"
-              v-model="password"
-              @key.enter="createNewuser"
-              label="Password"
-              required
-            ></v-text-field>
+      <v-layout row flex justify-center>
+          <v-flex xs12 sm6>        
+                <v-card class="elevation-2 pa-4" >
+                        <v-text-field
+                          v-model="name"
+                          label="Name"
+                          required
+                        ></v-text-field>
 
-
-            <v-btn
-              color="success"
-              @click.prevent="createNewUser"
-            >
-              Sign Up
-                <v-progress-circular
-                  indeterminate
-                  color="primary"
-                  v-show="loading" 
-                ></v-progress-circular>
-            </v-btn>
-
-            <v-btn
-              color="error"
-              @click.prevent="$router.push('/')"
-            >
-              Cancel
-            </v-btn>
+                        <v-text-field
+                          v-model="email"
+                          
+                          label="E-mail"
+                          required
+                        ></v-text-field>
+                        
+                        <v-text-field
+                          type="password"
+                          v-model="password"
+                          @key.enter="createNewuser"
+                          label="Password"
+                          required
+                        ></v-text-field>
 
 
-          </v-form>
+                        <v-btn
+                          color="success"
+                          @click.prevent="createNewUser"
+                        >
+                          Sign Up
+                            <v-progress-circular
+                              indeterminate
+                              color="primary"
+                              v-show="loading" 
+                            ></v-progress-circular>
+                        </v-btn>
+
+                        <v-btn
+                          color="error"
+                          @click.prevent="$router.push('/')"
+                        >
+                          Cancel
+                        </v-btn>
+                    </v-card>
+              </v-flex>
+            </v-layout>
         {{error}}
-    </div>
+    </v-container>
   </div>
 </template>
 

@@ -1,40 +1,64 @@
 <template>
 	<div>
 		
-		    <div class="container">
-		        <v-layout>
-		           <v-flex xs12 sm6 offset-sm3>
 
-						<v-alert
-					      :value="(messages.length==0)?true:false"
-					      type="info"
-					    >No items to show.
-    					</v-alert>
+        <v-container class="my-5 ">
+        	<v-alert
+			      :value="(messages.length == 0)"
+			      type="info"
+			 >No items Found </v-alert>
+            <v-layout row wrap my-5 v-for="(msg,index) in messages " color="red">
+               
+     
+               <v-flex xs12 sm4 >
 
-		              <v-card v-for="(msg,index) in messages ">
-		                <v-img
-		                  src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-		                  aspect-ratio="2.75"
-		                ></v-img>
+                  <v-card >
+                    <v-img
+                      src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                      aspect-ratio="2.75"
+                    ></v-img>
 
-		                <v-card-title primary-title>
-		                  <div>
-		                    <h3 class="headline mb-0">{{msg.area}}</h3>
-		                    <div> {{ msg.title }} </div>
-		                  </div>
-		                </v-card-title>
+                    <v-card-title primary-title>
+                      <div>
+                        <h3 class="headline mb-0">{{msg.area}}</h3>
+                        <div> {{ msg.title }} </div>
+                        <div> {{ msg.description }} </div>
+                      </div>
+                    </v-card-title>
 
-		                <v-card-actions>
+                    <v-card-actions>
 		                  <v-btn flat color="primary" @click.prevent="updateMessageDialog(msg)">Edit</v-btn>
 		                  <v-btn flat color="danger" @click.prevent="deleteMessageDialog(msg)">Delete</v-btn>
 		                </v-card-actions>
-		              </v-card>
-		              <br/>
-		            </v-flex>
-		        </v-layout>
-		  
-		    </div>
+                  </v-card>
+                  <br/>
+                </v-flex>
 
+
+              <v-flex xs12 sm6 mx-3>
+                    <v-card
+                      class="mx-auto"
+                    >
+                  
+                       <FormComment :message="msg"  />
+
+                       <v-card-title>
+                        <span class="title font-weight-bold">COMMENTS
+                                                </span>
+                      </v-card-title>
+                      <v-alert :value="(msg.comments.length == 0)"  type="info">No comments found.</v-alert>
+
+                      <v-card-text class="title font-weight-light" v-for="(c, index) in msg.comments" :key="index">
+                        {{c.email}}:"{{c.comment}}"
+                      </v-card-text>
+
+                    </v-card>
+
+              </v-flex>
+
+            </v-layout>
+            
+        </v-container>
 
 
 
@@ -126,6 +150,7 @@
 <script>
 import Alert from '@/components/AlertComponent.vue';
 import FormMessage from '@/components/FormMessageComponent.vue';
+import FormComment from '@/components/FormCommentComponent.vue';
 export default {
   name: 'ListMessageComponent',
   data: () => ({
@@ -136,6 +161,7 @@ export default {
       	area:'',
       	description:''
       }
+     
     }),
   props: {
   	messages: Array,
@@ -143,9 +169,10 @@ export default {
   	deleteMessage: Function
   },
   components: {
-  	FormMessage, Alert
+  	FormMessage, Alert, FormComment
   },
   methods: {
+
   	updateMessageDialog(msg){
   		this.editMessage = {...msg};
   		this.dialog = true;
@@ -161,7 +188,8 @@ export default {
   	deleteMessageAndCloseDialog(id){
   		this.deleteMessage(id);
   		this.dialogDelete = false;  	
-  	},
+  	}
+
   },
   created() {
     //this.$emit('updateMessage');

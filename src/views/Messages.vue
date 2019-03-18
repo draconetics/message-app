@@ -99,15 +99,15 @@ import {db} from '@/firebase';
                         title: msg.title,
                         area: msg.area,
                         description: msg.description,
-                        comments:[],
+                        comments: msg.comments,
                         id_user: msg.id_user
                     }).then(()=> {
                         console.log("updated message");
-                        let idMsgUpdated = this.messages.findIndex((message)=>{
+                        let indexMsgUpdated = this.messages.findIndex((message)=>{
                           //console.log(message.id + " - " + msg.id);
                           return message.id === msg.id;});
                         //console.log(idMsgUpdated);
-                        this.$set(this.messages, idMsgUpdated, msg);
+                        this.$set(this.messages, indexMsgUpdated, msg);
                         //console.log(this.messages);
                     })
                       .catch((err)=>console.log(err));
@@ -184,7 +184,7 @@ import {db} from '@/firebase';
 
                 //console.log(db.collection('a').get());
                 db.collection('messages').where("id_user", "==", this.user.uid).get().then((querySnapshot) => {
-                    let asistenciaArray = []
+                    
                     querySnapshot.forEach((doc) => {
                         let msg = doc.data();
                         let idMsg = doc.id;
