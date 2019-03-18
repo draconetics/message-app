@@ -3,8 +3,9 @@
 
     <MenuBar/>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/signup">Signup</router-link>
+      <router-link to="/">Home</router-link> ||
+      <router-link to="/signup" v-if="user == null">Signup</router-link>  
+      <router-link to="/msg" v-if="user">My Notifications</router-link>
     </div>
 
       <v-app>
@@ -14,13 +15,18 @@
 </template>
 <script>
   import MenuBar from '@/components/MenuBarComponent.vue';
-
+import {mapState} from 'vuex';
 
 export default {
   name: 'appVue',
   components: {
    MenuBar
   },
+  computed: {
+    ...mapState([
+      'user'
+    ])
+ }
 }
 </script>
 <style>

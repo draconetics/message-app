@@ -42,7 +42,7 @@
 
             <v-btn
               color="error"
-              @click="redirectAndReset"
+              @click="$router.push('/')"
             >
               Cancel
             </v-btn>
@@ -68,10 +68,7 @@
       userLogIn() {
         this.userSignIn({email:this.email,password:this.password});  
       },
-      redirectAndReset() {
-        this.error = null;
-        $router.push('/');
-      },
+      
       ...mapActions([
             'userSignIn'
             ])

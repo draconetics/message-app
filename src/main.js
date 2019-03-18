@@ -15,15 +15,24 @@ Vue.config.productionTip = false
 
 import firebase from 'firebase';
 
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-  created () {
-    firebase_config.auth().onAuthStateChanged((firebaseUser) => {
+let app;
+const initialize = () => {
+  if(!app){
+    app = new Vue({
+        router,
+        store,
+        render: h => h(App)
+      }).$mount('#app')
+  }
+}
+
+
+
+
+firebase_config.auth().onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
         store.dispatch('autoSignIn', firebaseUser)
+        console.log("autoSignIn action");
       }
+      initialize();
     })
-  }
-}).$mount('#app')
