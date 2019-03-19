@@ -7,7 +7,7 @@
 			      :value="(messages.length == 0)"
 			      type="info"
 			 >No items Found </v-alert>
-            <v-layout row wrap my-5 v-for="(msg,index) in messages " color="red">
+            <v-layout row wrap justify-center my-5 v-for="(msg,index) in messages " color="red">
                
      
                <v-flex xs12 sm4 >

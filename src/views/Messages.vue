@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="container">
+    <v-container>
         
                 <Alert :notification="error"/>
                 {{user}}
-          <v-form>
+        <v-layout justify-center>
+          <v-flex xs12 sm6>
           
             <FormMessage :message="message" :disabledState="false"/>
 
@@ -28,10 +29,11 @@
               >
                 Cancel
               </v-btn>
-          </v-form>
+          </v-flex>
+        </v-layout>
       {{message}}
       
-    </div>
+    </v-container>
 
 
     <ListMessage v-bind:messages="messages" :updateMessage="updateMessage" :deleteMessage="deleteMessage"/>
