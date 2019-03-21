@@ -1,24 +1,27 @@
 <template>
-	<div>
-		<v-alert
-                  :value="notification"
-                  type="error"
-                >
-                  {{notification}}
-                </v-alert>
-	</div>
+<div>
+    <v-alert
+    :value="notification"
+    :color="color"
+    dismissible>
+        {{notification}}
+    </v-alert>
+</div>
 </template>
 
 <script>
 
-
-
 export default {
-  name: 'AlertComponent',
-  props: ['notification'],
-  created() {
-    console.log(this.notification);
-  }
-
+    name: 'AlertComponent',
+    props:{
+        notification:String,
+        color:{
+            type:String,
+            default:'error'
+        }
+    },
+    created() {
+        console.log(this.notification);
+    }
 }
 </script>
