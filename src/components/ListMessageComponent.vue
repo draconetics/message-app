@@ -25,13 +25,15 @@
 										</v-card-text>
 										<v-card-actions>
 												<v-btn 
-												flat color="primary" 
+												color="primary" 
 												@click.prevent="updateMessageDialog(msg)">
+												<v-icon>edit</v-icon>
 														Edit
 												</v-btn>
 												<v-btn flat 
 												color="danger" 
 												@click.prevent="deleteMessageDialog(msg)">
+												<v-icon>delete</v-icon>
 														Delete
 												</v-btn>
 										</v-card-actions>

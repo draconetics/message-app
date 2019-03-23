@@ -10,6 +10,7 @@
 		</v-textarea> 	
 		
 		<v-btn color="info" @click.prevent="createCommentAndReset">
+			<v-icon>speaker_notes</v-icon>
 			Create comment
 		</v-btn>            	
 	</v-card-text>
@@ -17,8 +18,8 @@
 <script>
 
 import Alert from './AlertComponent.vue'
-import {db} from '../firebase'
-import {mapState} from 'vuex';
+
+import {mapState, mapActions} from 'vuex';
 export default {
 	name:'FormComment',
 	data:()=> ({
@@ -37,6 +38,7 @@ export default {
 		])
 	},
 	methods: {
+
 		createCommentAndReset() {
 			if(this.content == ''){
 				this.errorEmpty = 'No empty comment.';
@@ -49,20 +51,14 @@ export default {
 				comment: this.content        
 			};
 			this.message.comments.push(newComment);
-			db.collection('messages')
-				.doc(this.message.id).set({
-				    title: this.message.title,
-				    area: this.message.area,
-				    description: this.message.description,
-				    id_user: this.message.id_user,
-				    comments: this.message.comments
-				}).then(()=> {
-			    	console.log("updated message");
-			    	this.content = '';  
-				}).catch((err)=>console.log(err));
-		}//end createCommentAndReset()
+			this.createComment(this.message);
+			console.log('vaciar comment');
+			this.content = '';
+		},//end createCommentAndReset()
 
-
+		...mapActions([
+			'createComment'
+		])
 	}
 }
 </script>

@@ -5,12 +5,15 @@
     <div id="nav">
         
         <router-link to="/">
+        <v-icon>home</v-icon>
         Home</router-link> ||
         
         <router-link to="/signup" v-if="user == null">
+        <v-icon>account_box</v-icon>
         Signup</router-link>  
         
         <router-link to="/msg" v-if="user">
+        <v-icon>folder_open</v-icon>
         My Notifications</router-link>
 
     </div>

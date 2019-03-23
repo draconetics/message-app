@@ -1,6 +1,6 @@
 <template>
 <div>
-    
+
     <Alert :notification="error"/>
     <v-layout row wrap flex justify-center>
           <v-flex xs12 sm5 ma-3>

@@ -45,7 +45,7 @@
 
 <script>
 export default {
-    name: 'menuBarComponent',
+    name: 'FormMessageComponent',
 
     props: {
         disabledState:Boolean,
@@ -66,8 +66,12 @@ export default {
         saveMessageMethod() {
             if(this.isMessageEmpty() == true)
                 return ;
-            else
+            else {
                 this.saveMessage(this.message);
+                this.message.title = '';
+                this.message.area  = '';
+                this.message.description = '';
+            }
         },
         isMessageEmpty() {
             if(this.message.title == '' || 

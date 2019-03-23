@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import {firebase_config} from './firebase';
+import store from './store';
 
 Vue.use(Router)
 
@@ -105,6 +106,9 @@ router.beforeEach((to, from, next) => {
 
         }
     }
+    console.log("changing route !!!!!!!!!!!");
+    //here we can reset the error
+    store.dispatch('resetError', null);
 })
 
 

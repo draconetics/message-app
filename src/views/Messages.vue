@@ -1,19 +1,35 @@
 <template>
 <div>
-    <v-container>
+    <v-container fluid>
         <Alert :notification="alertMessage" :color="alertType"/>  
-        <v-layout justify-center>
-            <v-flex xs12 sm6>
-                <h2>Welcome : {{this.user.email}}</h2>
-                <h4>If you have a query, dont forget to write your notification below.</h4>
+        <div>
+            <h2>
+            <v-icon>android</v-icon>
+            Welcome : {{this.user.email}}
+            </h2>
                 
-                <FormMessage 
-                :saveMessage="saveMessage"
-                :disabledState="false"
-                :loading="loading"
-                :makeAlert="makeAlert"/>
+        </div>
+        <v-layout wrap>
             
+            <v-flex xs12 sm6 mr-4 mt-5>
+                <ChatList />      
             </v-flex>
+
+            <v-flex xs12 sm5 pa-2>
+                <v-card>
+                    <v-card-title>
+                        <h4>If you have a query, dont forget to write your notification below.</h4>
+                    </v-card-title>
+                    <v-card-text>
+                        <FormMessage 
+                        :saveMessage="saveMessage"
+                        :disabledState="false"
+                        :loading="loading"
+                        :makeAlert="makeAlert"/>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            
         </v-layout>
     </v-container>
 
@@ -23,16 +39,30 @@
     :deleteMessage="deleteMessage"
     />
 
+
+
+
+<template>
+  <v-layout row>
+    
+    </v-flex>
+  </v-layout>
+</template>
+
+
 </div>
 </template>
 
 <script>
 
+import ChatList from '@/components/ChatListComponent.vue';
 import ListMessage from '@/components/ListMessageComponent.vue';
 import FormMessage from '@/components/FormMessageComponent.vue';
 import Alert from'@/components/AlertComponent.vue';
 import {db} from '@/firebase';
+
 import {mapState} from 'vuex';
+
 
 export default {
     name:'Messages',
@@ -47,12 +77,20 @@ export default {
             },
             alertMessage:'',
             alertType:'',
-            loading:false
+            loading:false,
+            
+            drawer: true,
+            items: [
+              { title: 'Home', icon: 'dashboard' },
+              { title: 'About', icon: 'question_answer' }
+            ],
+            right: null
         }
     },
     components:{
-        FormMessage,Alert,ListMessage
+        FormMessage,Alert,ListMessage, ChatList
     },
+
     methods: {
         makeAlert(alert) {
             this.alertMessage = alert.message;
@@ -155,6 +193,7 @@ export default {
                         })
                         console.log(this.messages);
                     });
+
 
     }
 }

@@ -20,14 +20,16 @@
                 </v-card-title>
 
                 <v-card-actions>
-                    <v-btn flat 
+                    <v-btn 
                     color="primary" 
                     @click.prevent="commentDialog(msg)">
+                        <v-icon>speaker_notes</v-icon>
                         Respond
                     </v-btn>
                     <v-btn flat 
                     color="error" 
                     @click.prevent="deleteMessageDialog(msg)">
+                        <v-icon>delete</v-icon>
                         Delete
                     </v-btn>
                 </v-card-actions>
@@ -87,16 +89,16 @@
 
             <v-card-actions>
                 <v-btn
-                color="error"
-                flat
+                color="primary"
                 @click.prevent="saveCommentAndCloseDialog(comment)">
+                    <v-icon>done_all</v-icon>   
                     Respond
                 </v-btn>
 
                 <v-spacer></v-spacer>
             
                 <v-btn
-                color="primary"
+                color="error"
                 flat
                 @click="dialogRespond = false">
                     Cancel
@@ -125,18 +127,19 @@
                     <v-card-actions>
                             <v-btn
                             color="error"
-                            flat
                             @click="deleteMessage(message.id)">
-                                    Delete Notification
+                                <v-icon>done</v-icon>
+                                Delete Notification
                             </v-btn>
                             
                             <v-spacer></v-spacer>
                             
                             <v-btn
-                            color="primary"
                             flat
+                            color="primary"
                             @click="dialogDelete = false">
-                                    Cancel
+                                <v-icon>highlight_off</v-icon>
+                                Cancel
                             </v-btn>
                     </v-card-actions>
             </v-card>

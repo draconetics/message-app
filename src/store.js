@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {firebase_config} from './firebase'
+import {firebase_config, db} from './firebase'
+import {db_realtime} from './firebase'
 import router from '@/router'
 
 Vue.use(Vuex)
@@ -10,7 +11,8 @@ export default new Vuex.Store({
         appTitle: 'My Awesome App',
         user: null,
         error: null,
-        loading: false
+        loading: false,
+        users: []
     },
     mutations: {
         SET_USER (state, payload) {
@@ -29,10 +31,10 @@ export default new Vuex.Store({
             firebase_config.auth()
                 .createUserWithEmailAndPassword(payload.email, payload.password)
                     .then(firebaseUser => {
-                        console.log(firebaseUser);
-                        commit('SET_USER', {
-                            email: firebaseUser.email, 
-                            uid: firebaseUser.uid})
+                        //change the user status every time when the user
+                        //navigate all the web, main.js has a function asking
+                        //if there is a user logged.
+                        //then i dont need change the user state.
                         commit('SET_LOADING', false)
                         commit('SET_ERROR', null)
                         router.push('/')
@@ -47,17 +49,21 @@ export default new Vuex.Store({
             firebase_config.auth()
                 .signInWithEmailAndPassword(payload.email, payload.password)
                     .then(firebaseUser => {
-                        console.log(firebaseUser);
-                        commit('SET_USER', {email: firebaseUser.email, uid: firebaseUser.uid})
+                        //change the user status every time when the user
+                        //navigate all the web, main.js has a function asking
+                        //if there is a user logged.
+                        //then i dont need change the user state.
+
                         commit('SET_LOADING', false)
                         commit('SET_ERROR', null)
                         router.push('/');
-            //console.log("error es null");
                     }).catch(error => {
                         console.log(error);
                         commit('SET_ERROR', error.message)
                         commit('SET_LOADING', false)
+                        
                     })
+            
         },
         autoSignIn({commit},payload){
             if(payload){
@@ -77,9 +83,25 @@ export default new Vuex.Store({
                         // An error happened.
                         commit('SET_ERROR', error.message);
                     });
-            }
+        },
+        createComment({commit}, payload) {
+            console.log(payload);
+            db.collection('messages')
+                .doc(payload.id).set({
+                    title: payload.title,
+                    area: payload.area,
+                    description: payload.description,
+                    id_user: payload.id_user,
+                    comments: payload.comments
+                }).then(()=> {
+                    console.log("updated message");
+                      
+                }).catch((err)=>console.log(err));
+        },
+        resetError({commit},payload) {
+            //payload is null
+            commit('SET_ERROR',payload);
+        }
     },
-    created() {
-        this.state.error=null;
-    }
+
 });
